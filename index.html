@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#08080C" />
+  <title>Our First Anniversary — Our Story, Our Journey, Our Future</title>
+  <meta name="description" content="A private digital universe celebrating our first year together." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient background layers -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-gradient"></div>
+    <div class="stars" id="stars"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Single persistent audio element -->
+  <audio id="bgAudio" preload="auto" loop></audio>
+
+  <!-- ============ SCENE 1 — THE SECRET ENVELOPE ============ -->
+  <section class="scene active" data-scene="1" id="scene-1" aria-label="The Secret Envelope">
+    <div class="scene-inner envelope-scene">
+      <div class="envelope-wrap" aria-hidden="true">
+        <div class="envelope-glow"></div>
+        <div class="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-body">
+            <div class="envelope-heart">❤</div>
+          </div>
+        </div>
+      </div>
+      <p class="envelope-line envelope-line-1">Some stories begin with a single moment. Ours began with two.</p>
+      <p class="envelope-line envelope-line-2">A little world made just for us.</p>
+      <button class="btn-primary" id="openStoryBtn" type="button">
+        OPEN OUR STORY <span aria-hidden="true">❤️</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 2 — A LETTER FROM MY HEART ============ -->
+  <section class="scene" data-scene="2" id="scene-2" aria-label="A Letter From My Heart">
+    <div class="scene-inner letter-scene">
+      <h2 class="scene-heading">A Letter From My Heart</h2>
+      <div class="letter-paper">
+        <p class="letter-salutation" data-letter="salutation"></p>
+        <div class="letter-body" data-letter="body"></div>
+        <p class="letter-highlight" data-letter="highlight"></p>
+        <p class="letter-sign" data-letter="sign"></p>
+      </div>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">TURN THE PAGE →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 3 — THE CONFESSION ============ -->
+  <section class="scene" data-scene="3" id="scene-3" aria-label="The Confession">
+    <div class="scene-inner confession-scene">
+      <p class="scene-eyebrow">Chapter One</p>
+      <h2 class="scene-heading">THE MOMENT EVERYTHING CHANGED</h2>
+      <div class="date-pill">
+        <span data-confession-date></span>
+      </div>
+      <p class="scene-subtext" data-confession-story></p>
+      <div class="timer" id="confessionTimer" aria-label="Time since the confession">
+        <div class="timer-unit"><span class="timer-value" data-unit="years">0</span><span class="timer-label">Years</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="months">0</span><span class="timer-label">Months</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="days">0</span><span class="timer-label">Days</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="hours">0</span><span class="timer-label">Hours</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="minutes">0</span><span class="timer-label">Minutes</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="seconds">0</span><span class="timer-label">Seconds</span></div>
+      </div>
+      <p class="scene-quote" data-confession-quote></p>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 4 — THE BEGINNING OF US ============ -->
+  <section class="scene" data-scene="4" id="scene-4" aria-label="The Beginning of Us">
+    <div class="scene-inner beginning-scene">
+      <div class="warm-bloom" aria-hidden="true"></div>
+      <p class="scene-eyebrow">Chapter Two</p>
+      <h2 class="scene-heading">AND THEN, THERE WAS US.</h2>
+      <div class="date-pill date-pill-gold">
+        <span data-relationship-date></span>
+      </div>
+      <p class="scene-subtext" data-relationship-story></p>
+      <div class="timer timer-hero" id="relationshipTimer" aria-label="Time since the beginning of us">
+        <div class="timer-unit"><span class="timer-value" data-unit="years">0</span><span class="timer-label">Years</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="months">0</span><span class="timer-label">Months</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="days">0</span><span class="timer-label">Days</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="hours">0</span><span class="timer-label">Hours</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="minutes">0</span><span class="timer-label">Minutes</span></div>
+        <div class="timer-unit"><span class="timer-value" data-unit="seconds">0</span><span class="timer-label">Seconds</span></div>
+      </div>
+      <p class="scene-quote" data-relationship-quote></p>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5 — TWELVE MONTHS ============ -->
+  <section class="scene" data-scene="5" id="scene-5" aria-label="Twelve Months, Twelve Memories">
+    <div class="scene-inner gallery-scene">
+      <h2 class="scene-heading">12 MONTHS. COUNTLESS MEMORIES.</h2>
+      <p class="scene-subtext">A little piece of us from every month.</p>
+      <div class="gallery" id="gallery"></div>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 6 — THE LITTLE THINGS ============ -->
+  <section class="scene" data-scene="6" id="scene-6" aria-label="The Little Things That Matter">
+    <div class="scene-inner little-scene">
+      <h2 class="scene-heading">THE LITTLE THINGS I NEVER WANT TO FORGET.</h2>
+      <div class="notes-grid" id="notesGrid"></div>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 7 — PROMISES ============ -->
+  <section class="scene" data-scene="7" id="scene-7" aria-label="My Promises to You">
+    <div class="scene-inner promises-scene">
+      <h2 class="scene-heading">PROMISES FOR THE JOURNEY AHEAD.</h2>
+      <p class="scene-subtext">Not vows of perfection — just honest intentions, held gently.</p>
+      <ol class="promises-list" id="promisesList"></ol>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 8 — THE FUTURE ============ -->
+  <section class="scene" data-scene="8" id="scene-8" aria-label="The Future We Dream Of">
+    <div class="scene-inner future-scene">
+      <div class="horizon" aria-hidden="true"></div>
+      <h2 class="scene-heading">WE STILL HAVE SO MUCH LIFE TO LIVE.</h2>
+      <div class="future-letter" data-future-letter></div>
+      <p class="future-coda" data-future-coda></p>
+      <div class="scene-nav">
+        <button class="btn-ghost" data-nav="prev">← BACK</button>
+        <button class="btn-ghost" data-nav="next">NEXT →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 9 — CLOSING ============ -->
+  <section class="scene" data-scene="9" id="scene-9" aria-label="A Promise for the Long Journey">
+    <div class="scene-inner closing-scene">
+      <p class="scene-eyebrow">The Long Journey</p>
+      <h2 class="scene-heading">NOT JUST FOR THIS YEAR.<br/>FOR THE JOURNEY AHEAD.</h2>
+      <div class="closing-letter" data-closing-letter></div>
+      <p class="closing-happy" data-closing-happy></p>
+      <div class="closing-names">
+        <span data-closing-name-1></span>
+        <span class="closing-heart" aria-hidden="true">❤</span>
+        <span data-closing-name-2></span>
+      </div>
+      <button class="btn-primary" id="restartBtn" type="button">
+        EXPERIENCE OUR STORY AGAIN <span aria-hidden="true">↻</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lb-close" id="lbClose" aria-label="Close photo">✕</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <button class="lb-next" id="lbNext" aria-label="Next photo">›</button>
+    <figure class="lb-frame">
+      <img id="lbImg" alt="" />
+      <figcaption>
+        <div class="lb-month" id="lbMonth"></div>
+        <div class="lb-caption" id="lbCaption"></div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
