@@ -1,17 +1,19 @@
 /* =========================================================
    OUR FIRST ANNIVERSARY — SCRIPT
-   ---------------------------------------------------------
-   PERSONALIZATION: edit the CONFIG object below.
-   All names, dates, letters, captions, and promises live here.
    ========================================================= */
+
+// Define names first so we can use them in CONFIG
+const MY_NAME = "Swastik";
+const MY_NICKNAME = "Papan";
+const PARTNER_NAME = "Piyasha";
+const PARTNER_NICKNAME = "Piya";
 
 const CONFIG = {
   // ---------- People ----------
-  me: { name: "Swastik", nickname: "Papan" },
-  partner: { name: "Piyasha", nickname: "Piya" },
+  me: { name: MY_NAME, nickname: MY_NICKNAME },
+  partner: { name: PARTNER_NAME, nickname: PARTNER_NICKNAME },
 
   // ---------- Key moments (Asia/Kolkata = UTC+5:30) ----------
-  // The confession: 18 October 2025, 6:17 PM IST
   confession: {
     year: 2025, month: 10, day: 18, hour: 18, minute: 17, second: 0,
     label: "18 OCTOBER 2025 · 6:17 PM",
@@ -19,7 +21,6 @@ const CONFIG = {
     quote: "One moment, one confession, and a memory that will always belong to us."
   },
 
-  // The beginning of us: 19 October 2025, 11:04 PM IST
   relationship: {
     year: 2025, month: 10, day: 19, hour: 23, minute: 4, second: 0,
     label: "19 OCTOBER 2025 · 11:04 PM",
@@ -45,7 +46,7 @@ const CONFIG = {
 
   // ---------- Scene 2 — Opening letter ----------
   letter: {
-    salutation: "My dearest Piya,",
+    salutation: `My dearest ${PARTNER_NICKNAME},`,
     body: [
       "I don't think I ever properly told you what it means to have you in my life. Not in the big, sweeping way people write about — but in the quiet, everyday way that actually matters. You showed up, and my days started feeling different. Lighter, more honest, more like mine.",
       "This past year has become one of the most important chapters of my story, and not because of any single dramatic event. It's because of the thousand small ones — the conversations that went late, the silences that didn't feel awkward, the times you understood something about me I hadn't figured out how to say yet.",
@@ -54,7 +55,7 @@ const CONFIG = {
       "I don't know everything about being a partner yet. I'm still learning. But I hope I keep learning beside you — growing, listening, choosing us, again and again, in the ways that matter."
     ],
     highlight: "Every page you are about to see holds a little piece of our first year.",
-    sign: `— ${CONFIG.me.nickname}`
+    sign: `— ${MY_NICKNAME}`
   },
 
   // ---------- Scene 6 — Little things ----------
@@ -144,12 +145,12 @@ const CONFIG = {
       "I hope the years ahead give us more memories, more growth, more ordinary days that somehow feel extraordinary because we're living them together. I hope we keep choosing each other, even when it's hard, even when we're tired, even when we don't know the answer yet.",
       "And I hope that, someday, the story we're writing leads us to the day we marry each other — not because we have to, but because we get to."
     ],
-    happy: `Happy First Anniversary, my ${CONFIG.partner.nickname}. ❤️`,
+    happy: `Happy First Anniversary, my ${PARTNER_NICKNAME}. ❤️`,
     afterHappy: [
       "One year is only the beginning of the story we hope to write together.",
       "Here's to everything we've shared, everything we're learning, and all the beautiful chapters still ahead of us."
     ],
-    names: [CONFIG.me.name, CONFIG.partner.name]
+    names: [MY_NAME, PARTNER_NAME]
   },
 
   // ---------- Audio ----------
@@ -160,16 +161,12 @@ const CONFIG = {
    UTILITIES
    ========================================================= */
 
-// Convert a local date/time in Asia/Kolkata (UTC+5:30) to a UTC timestamp.
 function istToUTC({ year, month, day, hour, minute, second }) {
-  // month is 1-12
   const localAsUTC = Date.UTC(year, month - 1, day, hour, minute, second || 0);
   const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
   return localAsUTC - IST_OFFSET_MS;
 }
 
-// Calendar-accurate elapsed time between two UTC timestamps.
-// Returns { years, months, days, hours, minutes, seconds } all non-negative.
 function elapsedBetween(startUTC, nowUTC) {
   if (nowUTC < startUTC) {
     return { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -186,7 +183,6 @@ function elapsedBetween(startUTC, nowUTC) {
   if (minutes < 0)  { minutes  += 60; hours--;    }
   if (hours < 0)    { hours    += 24; days--;     }
   if (days < 0) {
-    // Days in the previous month of 'now'
     const prevMonthEnd = new Date(Date.UTC(nowUTC.getUTCFullYear(), nowUTC.getUTCMonth(), 0));
     days += prevMonthEnd.getUTCDate();
     months--;
@@ -246,14 +242,13 @@ function goScene(n) {
   }
   currentScene = n;
 
-  // Re-trigger reveal animations for promises when entering scene 7
   if (n === 7) revealPromises();
 
   setTimeout(() => { navLocked = false; }, 500);
 }
 
 /* =========================================================
-   AUDIO — single persistent element, started ONCE
+   AUDIO
    ========================================================= */
 const audioEl = document.getElementById("bgAudio");
 if (audioEl) {
@@ -271,7 +266,7 @@ function startAudioOnce() {
     const p = audioEl.play();
     if (p && typeof p.then === "function") {
       p.then(() => { audioStarted = true; })
-       .catch(() => { /* fail gracefully, no controls, no retry */ });
+       .catch(() => { /* fail gracefully */ });
     } else {
       audioStarted = true;
     }
@@ -281,7 +276,7 @@ function startAudioOnce() {
 }
 
 /* =========================================================
-   OPENING BUTTON (Scene 1)
+   OPENING BUTTON
    ========================================================= */
 const openBtn = document.getElementById("openStoryBtn");
 if (openBtn) {
@@ -289,14 +284,11 @@ if (openBtn) {
     if (openBtn.dataset.fired === "1") return;
     openBtn.dataset.fired = "1";
 
-    // Start music exactly once
     startAudioOnce();
 
-    // Cinematic envelope opening
     const scene1 = document.getElementById("scene-1");
     if (scene1) scene1.classList.add("opening");
 
-    // Navigate after the flap animation
     setTimeout(() => {
       goScene(2);
     }, 1100);
@@ -304,18 +296,17 @@ if (openBtn) {
 }
 
 /* =========================================================
-   RESTART BUTTON (Scene 9) — loops without resetting audio
+   RESTART BUTTON
    ========================================================= */
 const restartBtn = document.getElementById("restartBtn");
 if (restartBtn) {
   restartBtn.addEventListener("click", () => {
-    // Do NOT touch audio. Just loop the story.
     goScene(1);
   });
 }
 
 /* =========================================================
-   NAV BUTTONS (Back / Next)
+   NAV BUTTONS
    ========================================================= */
 document.querySelectorAll("[data-nav]").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -371,7 +362,7 @@ tickTimers();
 setInterval(tickTimers, 1000);
 
 /* =========================================================
-   GALLERY (Scene 5)
+   GALLERY
    ========================================================= */
 const gallery = document.getElementById("gallery");
 if (gallery) {
@@ -389,7 +380,6 @@ if (gallery) {
     photo.setAttribute("role", "img");
     photo.setAttribute("aria-label", m.label);
 
-    // Graceful placeholder on missing image
     const tester = new Image();
     tester.onload = () => { /* keep background image */ };
     tester.onerror = () => {
@@ -442,7 +432,6 @@ function openLightbox(i) {
   prevActiveEl = document.activeElement;
   renderLightbox();
   lightbox.hidden = false;
-  // force reflow before adding .open for transition
   void lightbox.offsetWidth;
   lightbox.classList.add("open");
   document.body.classList.add("no-scroll");
@@ -485,7 +474,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* =========================================================
-   LITTLE THINGS (Scene 6)
+   LITTLE THINGS
    ========================================================= */
 const notesGrid = document.getElementById("notesGrid");
 if (notesGrid) {
@@ -507,7 +496,7 @@ if (notesGrid) {
 }
 
 /* =========================================================
-   PROMISES (Scene 7) — staggered reveal
+   PROMISES
    ========================================================= */
 const promisesList = document.getElementById("promisesList");
 if (promisesList) {
@@ -528,11 +517,9 @@ function revealPromises() {
 }
 
 /* =========================================================
-   POPULATE TEXT CONTENT FROM CONFIG
-   (uses textContent / DOM building — no innerHTML on user text)
+   POPULATE CONTENT
    ========================================================= */
 (function populateContent() {
-  // Scene 2 — Letter
   const sal = document.querySelector("[data-letter='salutation']");
   if (sal) sal.textContent = CONFIG.letter.salutation;
 
@@ -549,7 +536,6 @@ function revealPromises() {
   const sign = document.querySelector("[data-letter='sign']");
   if (sign) sign.textContent = CONFIG.letter.sign;
 
-  // Scene 3 — Confession
   const cDate = document.querySelector("[data-confession-date]");
   if (cDate) cDate.textContent = CONFIG.confession.label;
   const cStory = document.querySelector("[data-confession-story]");
@@ -557,7 +543,6 @@ function revealPromises() {
   const cQuote = document.querySelector("[data-confession-quote]");
   if (cQuote) cQuote.textContent = CONFIG.confession.quote;
 
-  // Scene 4 — Relationship
   const rDate = document.querySelector("[data-relationship-date]");
   if (rDate) rDate.textContent = CONFIG.relationship.label;
   const rStory = document.querySelector("[data-relationship-story]");
@@ -565,7 +550,6 @@ function revealPromises() {
   const rQuote = document.querySelector("[data-relationship-quote]");
   if (rQuote) rQuote.textContent = CONFIG.relationship.quote;
 
-  // Scene 8 — Future
   const futureLetter = document.querySelector("[data-future-letter]");
   if (futureLetter) {
     CONFIG.future.letter.forEach(para => {
@@ -577,7 +561,6 @@ function revealPromises() {
   const futureCoda = document.querySelector("[data-future-coda]");
   if (futureCoda) futureCoda.textContent = CONFIG.future.coda;
 
-  // Scene 9 — Closing
   const closingLetter = document.querySelector("[data-closing-letter]");
   if (closingLetter) {
     CONFIG.closing.letter.forEach(para => {
@@ -588,11 +571,9 @@ function revealPromises() {
   }
   const closingHappy = document.querySelector("[data-closing-happy]");
   if (closingHappy) {
-    // Main line
     const main = document.createElement("span");
     main.textContent = CONFIG.closing.happy;
     closingHappy.appendChild(main);
-    // Follow-up lines
     CONFIG.closing.afterHappy.forEach(line => {
       const br = document.createElement("br");
       const s = document.createElement("span");
@@ -608,8 +589,7 @@ function revealPromises() {
 })();
 
 /* =========================================================
-   KEYBOARD NAVIGATION BETWEEN SCENES (optional, gentle)
-   Only when lightbox is closed.
+   KEYBOARD NAVIGATION
    ========================================================= */
 document.addEventListener("keydown", (e) => {
   if (!lightbox.hidden) return;
