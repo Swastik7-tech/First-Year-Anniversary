@@ -27,7 +27,7 @@ const CONFIG = {
   confessionDate: "2025-10-18T00:00:00",
 
   // Place your audio file at this path.
-  song: "assets/our-song.mp3",
+  song: "our-song.mp3",
 
   letter: {
     salutation: "My dearest Piya,",
